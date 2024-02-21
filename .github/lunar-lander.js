@@ -1,29 +1,29 @@
 
 //dragon
-let x1=350;
-let y1=0;
-let x2=450;
-let y2=0;
-let x3=450;
-let y3=50;
-let x4=350;
-let y4=50;
+//let x1=350;
+//let y1=0;
+// let x2=450;
+// let y2=0;
+// let x3=450;
+// let y3=50;
+// let x4=350;
+// let y4=50;
+let y=150;
+let x=400;
 let gravity=0.1;
 let thrust=0;
 let velocityY=0;
 let screen=1;
-let s_start_game = "Start Game";
 let starsX=[];
 let starsY=[];
 let starsAlpha=[];
 let starsDrawn = false;
-let win = true;
+let win = false;
 
 function checkInput(){
     if(keyIsDown(32)){
         console.log(thrust);
         if(thrust===0){
-            //velocityY = 0;
             thrust= 0.1;
         }
         else{
@@ -50,12 +50,12 @@ function drawStars(){
         }
         starsDrawn = true;
     }
-    for (let i = 0; i<255; i++){
+    for (let i = 0; i<225; i++){
         fill(255,255,255,Math.abs(Math.sin(starsAlpha[i]))*255);
-        x = starsX[i];
-        y = starsY[i];
-        ellipse(x,y,5,5);
-        starsAlpha[i] += 0.01;/*(Math.random() - 0.5);*/
+        x1 = starsX[i];
+        y1 = starsY[i];
+        ellipse(x1,y1,5,5);
+        starsAlpha[i] += 0.01;
         starsX[i] -= 0.1;
         starsY[i] += 0.1;
         if (starsX[i] < 0){
@@ -69,47 +69,68 @@ function drawStars(){
 
 function characterMovement(){
     checkInput();
-    fill(100,200,250);
-    quad(x1,y1,x2,y2,x3,y3,x4,y4);
+    noStroke();
+    width=200;
+    height=300;
+    //Fire
+    fill(200,35,10);
+    triangle(x-35,y+height/3,x-5,y+height/3,x-45,y+height/3+40);
+    triangle(x+35,y+height/3,x+5,y+height/3,x+45,y+height/3+40);
+    triangle(x-25,y+height/3,x+25,y+height/3,x,y+height/3+60);
+    fill(200,100,40);
+    ellipse(x,y+height/3,70,50);
+    fill(220,200,40);
+    ellipse(x,y+height/3,50,25);
+  
+    // Nose cone
+    fill(220,20,20);
+    const noseConeWidth = width / 4;
+    const noseConeHeight = height / 4;
+    ellipse(x, y-height / 4, noseConeWidth, noseConeHeight, 0, 0, Math.PI);
+    //Head
+    fill(200,200,200);
+    quad(x-width/7, y-height/4, x+width / 7, y-height / 4,x+width /4 , y+height /4, x-width / 4, y+height / 4);
+    // Windows
+    fill(10,10,60);
+    const windowWidth = width / 10;
+    const windowHeight = height / 5;
+    rect(x-width / 7, y-height / 10, windowWidth, windowHeight);
+    rect(x+width  / 7 - windowWidth, y-height / 10, windowWidth, windowHeight);
+    //Engine
+    fill(100,100,100);
+    quad(x-width/7, y+height/4, x+width / 7, y+height / 4,x+width /4 , y+height /3, x-width / 4, y+height / 3);
     //console.log(velocityY);
     
     
     fill(255,255,255);
     textSize(30);
-    text(velocityY,600,200);
+    text("Velocity:"+velocityY.toFixed(2),700,200);
     
-    if(y3<700 && y4<700 ){
+    if(y<550 ){
         velocityY=velocityY + gravity - thrust;
         if (velocityY < -4){
             velocityY = -4;
         }
-        y1=y1+velocityY;
-        y2=y2+velocityY;
-        y3=y3+velocityY;
-        y4=y4+velocityY;
-        //gravity= gravity * 1.02;
+        y= y+velocityY;
     }
     //Landing Coordinates
     else{
         if (velocityY > 5){
             velocityY=0;
-            console.log("Peos");
+            console.log("Defeat");
             win = false;
         }
         else{
             velocityY=0;
-            console.log("No peos");
+            console.log("Victory");
             win = true;
         }
         screen = 3;
         clear();
     }
-    if(y1<0 && y2<0){
-        y1=0;
-        y2=0;
-        y3=50;
-        y4=50;
-        thrust = 0;
+    if(y<150){
+        y=150;
+        
     }
 }
 
@@ -127,10 +148,11 @@ function drawPlatform(){
 }
 
 function drawStart(){
+    background(0,0,0);
     fill(255,255,255);
     textSize(100);
     textAlign(CENTER);
-    text(s_start_game,450,300);
+    text("Moon Lander",450,300);
 
     textSize(60);
     textAlign(CENTER);
@@ -141,14 +163,8 @@ function drawStart(){
         //console.log(screen);
         clear();
         screen=2;
-        x1=350;
-        y1=0;
-        x2=450;
-        y2=0;
-        x3=450;
-        y3=50;
-        x4=350;
-        y4=50;
+        x=400;
+        y=150;
         gravity=0.1;
         thrust=0;
         velocityY=0;
@@ -165,14 +181,14 @@ function drawGameOver(){
         textAlign(CENTER);
         fill(40,255,40);
         
-        text("GeGe",450,400);
+        text("GG EASY",450,400);
     }
     else{
         background(20,0,5);
         textSize(60);
         textAlign(CENTER);
         fill(200,30,30);
-        text("play minecraft",450,400);
+        text("SKILL ISSUE",450,400);
     }
 
     //  Game Over text
@@ -206,7 +222,7 @@ function drawGame(){
 }
 
 function draw(){
-    
+    clear();
     //console.log(screen);
     if (screen ===1){
         drawStart();
@@ -220,8 +236,8 @@ function draw(){
     if (screen===3){
         drawGameOver();
     }
-}
 
+}
 
 
 
