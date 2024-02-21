@@ -1,13 +1,5 @@
 
-//dragon
-//let x1=350;
-//let y1=0;
-// let x2=450;
-// let y2=0;
-// let x3=450;
-// let y3=50;
-// let x4=350;
-// let y4=50;
+//NASA2.0
 let y=150;
 let x=400;
 let gravity=0.1;
