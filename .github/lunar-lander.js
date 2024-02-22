@@ -93,7 +93,6 @@ function characterMovement(){
     //Engine
     fill(100,100,100);
     quad(x-width/7, y+height/4, x+width / 7, y+height / 4,x+width /4 , y+height /3, x-width / 4, y+height / 3);
-    //console.log(velocityY);
     
     
     fill(255,255,255);
@@ -111,12 +110,10 @@ function characterMovement(){
     else{
         if (velocityY > 5){
             velocityY=0;
-            console.log("Defeat");
             win = false;
         }
         else{
             velocityY=0;
-            console.log("Victory");
             win = true;
         }
         screen = 3;
@@ -154,7 +151,6 @@ function drawStart(){
     text("Click A to start",450,400);
 
     if (keyIsDown(65)){
-        //console.log(screen);
         clear();
         screen=2;
         x=400;
