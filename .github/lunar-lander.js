@@ -1,5 +1,7 @@
 
 //NASA2.0
+let width=150;
+let height=200;
 let y=150;
 let x=400;
 let gravity=0.1;
@@ -11,6 +13,7 @@ let starsY=[];
 let starsAlpha=[];
 let starsDrawn = false;
 let win = false;
+
 
 function checkInput(){
     if(keyIsDown(32)){
@@ -62,18 +65,17 @@ function drawStars(){
 function characterMovement(){
     checkInput();
     noStroke();
-    width=200;
-    height=300;
     //Fire
-    fill(200,35,10);
-    triangle(x-35,y+height/3,x-5,y+height/3,x-45,y+height/3+40);
-    triangle(x+35,y+height/3,x+5,y+height/3,x+45,y+height/3+40);
-    triangle(x-25,y+height/3,x+25,y+height/3,x,y+height/3+60);
-    fill(200,100,40);
-    ellipse(x,y+height/3,70,50);
-    fill(220,200,40);
-    ellipse(x,y+height/3,50,25);
-  
+    if(thrust>0){
+        fill(200,35,10);
+        triangle(x-width*0.17,y+height/3,x-width*0.02,y+height/3,x-width*0.19,y+height/2);
+        triangle(x+width*0.17,y+height/3,x+width*0.02,y+height/3,x+width*0.19,y+height/2);
+        triangle(x-width*0.10,y+height/3,x+width*0.10,y+height/3,x,y+height/1.6);
+        fill(200,100,40);
+        ellipse(x,y+height/3,width/3,width/5);
+        fill(220,200,40);
+        ellipse(x,y+height/3,width/5,width/8);
+    }
     // Nose cone
     fill(220,20,20);
     const noseConeWidth = width / 4;
@@ -98,7 +100,7 @@ function characterMovement(){
     textSize(30);
     text("Velocity:"+velocityY.toFixed(2),700,200);
     
-    if(y<550 ){
+    if(y<700-(height/3.5)){
         velocityY=velocityY + gravity - thrust;
         if (velocityY < -4){
             velocityY = -4;
@@ -120,8 +122,8 @@ function characterMovement(){
         screen = 3;
         clear();
     }
-    if(y<150){
-        y=150;
+    if(y<height/3){
+        y=height/3;
         
     }
 }
