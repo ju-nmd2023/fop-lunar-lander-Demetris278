@@ -14,6 +14,10 @@ let starsAlpha=[];
 let starsDrawn = false;
 let win = false;
 
+canvas {
+    width : 1000px;
+    height : 1000px;
+ }
 
 function checkInput(){
     if(keyIsDown(32)){
