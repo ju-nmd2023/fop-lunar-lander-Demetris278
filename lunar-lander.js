@@ -14,10 +14,9 @@ let starsAlpha=[];
 let starsDrawn = false;
 let win = false;
 
-canvas {
-    width : 1000px;
-    height : 1000px;
- }
+function setup{
+    createCanvas(800,600);
+}
 
 function checkInput(){
     if(keyIsDown(32)){
