@@ -1,7 +1,7 @@
 
 //NASA2.0
 let y=150;
-let x=400;
+let x=-1;
 let gravity=0.1;
 let thrust=0;
 let velocityY=0;
@@ -15,7 +15,7 @@ let charWidth=-1;
 let charHeight=-1;
 
 function setup(){
-    createCanvas(800,900);
+    createCanvas(900,800);
     frameRate(30);
     charWidth=150;
     charHeight=300;
@@ -45,7 +45,7 @@ function checkInput(){
 function drawStars(){
     if (starsDrawn === false){
         for (let i = 0; i < 225; i++){
-            starsX[i] = Math.random() * 850;
+            starsX[i] = Math.random() * 900;
             starsY[i] = Math.random() * 600;
             starsAlpha[i]=Math.random() * 200;
         }
@@ -60,7 +60,7 @@ function drawStars(){
         starsX[i] -= 0.1;
         starsY[i] += 0.1;
         if (starsX[i] < 0){
-            starsX[i] = 850;
+            starsX[i] = 900;
         }
         if (starsY[i] > 650){
             starsY[i] = 0;
@@ -134,14 +134,14 @@ function characterMovement(){
 
 function drawPlatform(){
     fill(86,86,86);
-    ellipse(400,750,1000,400);
+    ellipse(width/2,750,width*1.3,400);
     noStroke();
     fill(120,120,120);
     ellipse(220,740,180,140);
     ellipse(560,650,140,120);
     ellipse(620,840,160,140);
     fill(211,197,44);
-    ellipse(400,700,150,40);
+    ellipse(width/2,700,150,40);
 }
 
 function drawStart(){
@@ -159,7 +159,7 @@ function drawStart(){
     if (keyIsDown(65)){
         clear();
         screen=2;
-        x=400;
+        x=width/2;
         y=150;
         gravity=0.1;
         thrust=0;
