@@ -1,7 +1,9 @@
 
 //NASA2.0
-let width=150;
-let height=200;
+let canvas = document.querySelector("#my_canvas");
+let ctx = canvas.getContext("2d");
+ctx.width=150;
+ctx.height=200;
 let y=150;
 let x=400;
 let gravity=0.1;
@@ -13,10 +15,6 @@ let starsY=[];
 let starsAlpha=[];
 let starsDrawn = false;
 let win = false;
-
-function setup{
-    createCanvas(800,600);
-}
 
 function checkInput(){
     if(keyIsDown(32)){
@@ -35,7 +33,7 @@ function checkInput(){
         thrust = 0;
     }
     
-    /*console.log(thrust);*/
+    
 }
 
 
@@ -71,36 +69,36 @@ function characterMovement(){
     //Fire
     if(thrust>0){
         fill(200,35,10);
-        triangle(x-width*0.17,y+height/3,x-width*0.02,y+height/3,x-width*0.19,y+height/2);
-        triangle(x+width*0.17,y+height/3,x+width*0.02,y+height/3,x+width*0.19,y+height/2);
-        triangle(x-width*0.10,y+height/3,x+width*0.10,y+height/3,x,y+height/1.6);
+        ctx.triangle(x-ctx.width*0.17,y+ctx.height/3,x-ctx.width*0.02,y+ctx.height/3,x-ctx.width*0.19,y+ctx.height/2);
+        ctx.triangle(x+ctx.width*0.17,y+ctx.height/3,x+ctx.width*0.02,y+ctx.height/3,x+ctx.width*0.19,y+ctx.height/2);
+        ctx.triangle(x-ctx.width*0.10,y+ctx.height/3,x+ctx.width*0.10,y+ctx.height/3,x,y+ctx.height/1.6);
         fill(200,100,40);
-        ellipse(x,y+height/3,width/3,width/5);
+        ctx.ellipse(x,y+ctx.height/3,ctx.width/3,ctx.width/5);
         fill(220,200,40);
-        ellipse(x,y+height/3,width/5,width/8);
+        ctx.ellipse(x,y+ctx.height/3,ctx.width/5,ctx.width/8);
     }
     // Nose cone
     fill(220,20,20);
     const noseConeWidth = width / 4;
     const noseConeHeight = height / 4;
-    ellipse(x, y-height / 4, noseConeWidth, noseConeHeight, 0, 0, Math.PI);
+    ctx.ellipse(x, y-ctx.height / 4, noseConeWidth, noseConeHeight, 0, 0, Math.PI);
     //Head
     fill(200,200,200);
-    quad(x-width/7, y-height/4, x+width / 7, y-height / 4,x+width /4 , y+height /4, x-width / 4, y+height / 4);
+    ctx.quad(x-ctx.width/7, y-ctx.height/4, x+ctx.width / 7, y-ctx.height / 4,x+ctx.width /4 , y+ctx.height /4, x-ctx.width / 4, y+ctx.height / 4);
     // Windows
     fill(10,10,60);
     const windowWidth = width / 10;
     const windowHeight = height / 5;
-    rect(x-width / 7, y-height / 10, windowWidth, windowHeight);
-    rect(x+width  / 7 - windowWidth, y-height / 10, windowWidth, windowHeight);
+    ctx.rect(x-ctx.width / 7, y-ctx.height / 10, windowWidth, windowHeight);
+    ctx.rect(x+ctx.width  / 7 - windowWidth, y-ctx.height / 10, windowWidth, windowHeight);
     //Engine
     fill(100,100,100);
-    quad(x-width/7, y+height/4, x+width / 7, y+height / 4,x+width /4 , y+height /3, x-width / 4, y+height / 3);
+    ctx.quad(x-ctx.width/7, y+ctx.height/4, x+ctx.width / 7, y+ctx.height / 4,x+ctx.width /4 , y+ctx.height /3, x-ctx.width / 4, y+ctx.height / 3);
     
     
     fill(255,255,255);
     textSize(30);
-    text("Velocity:"+velocityY.toFixed(2),700,200);
+    ctx.text("Velocity:"+velocityY.toFixed(2),700,200);
     
     if(y<700-(height/3.5)){
         velocityY=velocityY + gravity - thrust;
@@ -120,10 +118,10 @@ function characterMovement(){
             win = true;
         }
         screen = 3;
-        clear();
+        ctx.clear();
     }
-    if(y<height/3){
-        y=height/3;
+    if(y<ctx.height/3){
+        y=ctx.height/3;
         
     }
 }
@@ -131,30 +129,30 @@ function characterMovement(){
 
 function drawPlatform(){
     fill(86,86,86);
-    ellipse(400,750,1000,400);
+    ctx.ellipse(400,750,1000,400);
     noStroke();
     fill(120,120,120);
-    ellipse(220,740,180,140);
-    ellipse(560,650,140,120);
-    ellipse(620,840,160,140);
+    ctx.ellipse(220,740,180,140);
+    ctx.ellipse(560,650,140,120);
+    ctx.ellipse(620,840,160,140);
     fill(211,197,44);
-    ellipse(400,700,150,40);
+    ctx.ellipse(400,700,150,40);
 }
 
 function drawStart(){
-    background(0,0,0);
+    ctx.background(0,0,0);
     fill(255,255,255);
     textSize(100);
     textAlign(CENTER);
-    text("Moon Lander",450,300);
+    ctx.text("Moon Lander",450,300);
 
     textSize(60);
     textAlign(CENTER);
     fill(255,255,20);
-    text("Click A to start",450,400);
+    ctx.text("Click A to start",450,400);
 
     if (keyIsDown(65)){
-        clear();
+        ctx.clear();
         screen=2;
         x=400;
         y=150;
@@ -169,38 +167,37 @@ function drawGameOver(){
     
 
     if (win){
-        background(10,100,100);
+        ctx.background(10,100,100);
         textSize(60);
         textAlign(CENTER);
         fill(40,255,40);
         
-        text("GG EASY",450,400);
+        ctx.text("GG EASY",450,400);
     }
     else{
-        background(20,0,5);
+        ctx.background(20,0,5);
         textSize(60);
         textAlign(CENTER);
         fill(200,30,30);
-        text("SKILL ISSUE",450,400);
+        ctx.text("SKILL ISSUE",450,400);
     }
 
     //  Game Over text
     fill(255,255,255);
     textSize(100);
     textAlign(CENTER);
-    text("GAME OVER",450,300);
+    ctx.text("GAME OVER",450,300);
 
     //  Try Again
     fill(50,50,100);
-    quad(250,520,650,520,650,630,250,630);
+    ctx.quad(250,520,650,520,650,630,250,630);
     fill(120,180,255);
     textSize(80);
     textAlign(CENTER);
-    text("Play Again",450,600);
+    ctx.text("Play Again",450,600);
     
     if (mouseIsPressed && mouseX >250 && mouseX < 650 && mouseY >520 && mouseY < 630){
-        //console.log(screen);
-        clear();
+        ctx.clear();
         screen=1;
     }
 }
@@ -215,8 +212,8 @@ function drawGame(){
 }
 
 function draw(){
-    clear();
-    //console.log(screen);
+    ctx.clear();
+
     if (screen ===1){
         drawStart();
     }
