@@ -1,9 +1,5 @@
 
 //NASA2.0
-let canvas = document.querySelector("#my_canvas");
-let ctx = canvas.getContext("2d");
-ctx.width=150;
-ctx.height=200;
 let y=150;
 let x=400;
 let gravity=0.1;
@@ -15,6 +11,15 @@ let starsY=[];
 let starsAlpha=[];
 let starsDrawn = false;
 let win = false;
+let charWidth=-1;
+let charHeight=-1;
+
+function setup(){
+    createCanvas(800,900);
+    frameRate(30);
+    charWidth=150;
+    charHeight=300;
+}
 
 function checkInput(){
     if(keyIsDown(32)){
@@ -69,38 +74,38 @@ function characterMovement(){
     //Fire
     if(thrust>0){
         fill(200,35,10);
-        ctx.triangle(x-ctx.width*0.17,y+ctx.height/3,x-ctx.width*0.02,y+ctx.height/3,x-ctx.width*0.19,y+ctx.height/2);
-        ctx.triangle(x+ctx.width*0.17,y+ctx.height/3,x+ctx.width*0.02,y+ctx.height/3,x+ctx.width*0.19,y+ctx.height/2);
-        ctx.triangle(x-ctx.width*0.10,y+ctx.height/3,x+ctx.width*0.10,y+ctx.height/3,x,y+ctx.height/1.6);
+        triangle(x-charWidth*0.17,y+charHeight/3,x-charWidth*0.02,y+charHeight/3,x-charWidth*0.19,y+charHeight/2);
+        triangle(x+charWidth*0.17,y+charHeight/3,x+charWidth*0.02,y+charHeight/3,x+charWidth*0.19,y+charHeight/2);
+        triangle(x-charWidth*0.10,y+charHeight/3,x+charWidth*0.10,y+charHeight/3,x,y+charHeight/1.6);
         fill(200,100,40);
-        ctx.ellipse(x,y+ctx.height/3,ctx.width/3,ctx.width/5);
+        ellipse(x,y+charHeight/3,charWidth/3,charWidth/5);
         fill(220,200,40);
-        ctx.ellipse(x,y+ctx.height/3,ctx.width/5,ctx.width/8);
+        ellipse(x,y+charHeight/3,charWidth/5,charWidth/8);
     }
     // Nose cone
     fill(220,20,20);
-    const noseConeWidth = width / 4;
-    const noseConeHeight = height / 4;
-    ctx.ellipse(x, y-ctx.height / 4, noseConeWidth, noseConeHeight, 0, 0, Math.PI);
+    const noseConecharWidth = charWidth / 4;
+    const noseConeHeight = charHeight / 4;
+    ellipse(x, y-charHeight / 4, noseConecharWidth, noseConeHeight, 0, 0, Math.PI);
     //Head
     fill(200,200,200);
-    ctx.quad(x-ctx.width/7, y-ctx.height/4, x+ctx.width / 7, y-ctx.height / 4,x+ctx.width /4 , y+ctx.height /4, x-ctx.width / 4, y+ctx.height / 4);
+    quad(x-charWidth/7, y-charHeight/4, x+charWidth / 7, y-charHeight / 4,x+charWidth /4 , y+charHeight /4, x-charWidth / 4, y+charHeight / 4);
     // Windows
     fill(10,10,60);
-    const windowWidth = width / 10;
-    const windowHeight = height / 5;
-    ctx.rect(x-ctx.width / 7, y-ctx.height / 10, windowWidth, windowHeight);
-    ctx.rect(x+ctx.width  / 7 - windowWidth, y-ctx.height / 10, windowWidth, windowHeight);
+    const windowcharWidth = charWidth / 10;
+    const windowHeight = charHeight / 5;
+    rect(x-charWidth / 7, y-charHeight / 10, windowcharWidth, windowHeight);
+    rect(x+charWidth  / 7 - windowcharWidth, y-charHeight / 10, windowcharWidth, windowHeight);
     //Engine
     fill(100,100,100);
-    ctx.quad(x-ctx.width/7, y+ctx.height/4, x+ctx.width / 7, y+ctx.height / 4,x+ctx.width /4 , y+ctx.height /3, x-ctx.width / 4, y+ctx.height / 3);
+    quad(x-charWidth/7, y+charHeight/4, x+charWidth / 7, y+charHeight / 4,x+charWidth /4 , y+charHeight /3, x-charWidth / 4, y+charHeight / 3);
     
     
     fill(255,255,255);
     textSize(30);
-    ctx.text("Velocity:"+velocityY.toFixed(2),700,200);
+    text("Velocity:"+velocityY.toFixed(2),700,200);
     
-    if(y<700-(height/3.5)){
+    if(y<700-(charHeight/3.5)){
         velocityY=velocityY + gravity - thrust;
         if (velocityY < -4){
             velocityY = -4;
@@ -118,10 +123,10 @@ function characterMovement(){
             win = true;
         }
         screen = 3;
-        ctx.clear();
+        clear();
     }
-    if(y<ctx.height/3){
-        y=ctx.height/3;
+    if(y<charHeight/3){
+        y=charHeight/3;
         
     }
 }
@@ -129,30 +134,30 @@ function characterMovement(){
 
 function drawPlatform(){
     fill(86,86,86);
-    ctx.ellipse(400,750,1000,400);
+    ellipse(400,750,1000,400);
     noStroke();
     fill(120,120,120);
-    ctx.ellipse(220,740,180,140);
-    ctx.ellipse(560,650,140,120);
-    ctx.ellipse(620,840,160,140);
+    ellipse(220,740,180,140);
+    ellipse(560,650,140,120);
+    ellipse(620,840,160,140);
     fill(211,197,44);
-    ctx.ellipse(400,700,150,40);
+    ellipse(400,700,150,40);
 }
 
 function drawStart(){
-    ctx.background(0,0,0);
+    background(0,0,0);
     fill(255,255,255);
     textSize(100);
     textAlign(CENTER);
-    ctx.text("Moon Lander",450,300);
+    text("Moon Lander",450,300);
 
     textSize(60);
     textAlign(CENTER);
     fill(255,255,20);
-    ctx.text("Click A to start",450,400);
+    text("Click A to start",450,400);
 
     if (keyIsDown(65)){
-        ctx.clear();
+        clear();
         screen=2;
         x=400;
         y=150;
@@ -167,42 +172,43 @@ function drawGameOver(){
     
 
     if (win){
-        ctx.background(10,100,100);
+        background(10,100,100);
         textSize(60);
         textAlign(CENTER);
         fill(40,255,40);
         
-        ctx.text("GG EASY",450,400);
+        text("GG EASY",450,400);
     }
     else{
-        ctx.background(20,0,5);
+        background(20,0,5);
         textSize(60);
         textAlign(CENTER);
         fill(200,30,30);
-        ctx.text("SKILL ISSUE",450,400);
+        text("SKILL ISSUE",450,400);
     }
 
     //  Game Over text
     fill(255,255,255);
     textSize(100);
     textAlign(CENTER);
-    ctx.text("GAME OVER",450,300);
+    text("GAME OVER",450,300);
 
     //  Try Again
     fill(50,50,100);
-    ctx.quad(250,520,650,520,650,630,250,630);
+    quad(250,520,650,520,650,630,250,630);
     fill(120,180,255);
     textSize(80);
     textAlign(CENTER);
-    ctx.text("Play Again",450,600);
+    text("Play Again",450,600);
     
     if (mouseIsPressed && mouseX >250 && mouseX < 650 && mouseY >520 && mouseY < 630){
-        ctx.clear();
+        clear();
         screen=1;
     }
 }
 
 function drawGame(){
+    background(0,0,0);
     drawStars();
     drawPlatform();
     
@@ -212,7 +218,7 @@ function drawGame(){
 }
 
 function draw(){
-    ctx.clear();
+    clear();
 
     if (screen ===1){
         drawStart();
